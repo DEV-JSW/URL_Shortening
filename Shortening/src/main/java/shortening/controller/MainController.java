@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,16 +23,20 @@ import shortening.utils.ShorteningUtils;
 
 @Controller
 public class MainController {
+	private final Logger LOGGER;
 	private final String SHORT_URL;
 	@Autowired
 	private ShorteningMapper dao;
 	
 	public MainController() {
 		SHORT_URL = "http://localhost:25225/short/";
+		LOGGER = LogManager.getLogger(MainController.class);
 	}
 	
 	@RequestMapping (value = "/")
 	public String main() {
+		LOGGER.info("URL Shortening Main Page Loading.");
+		
 		return "index";
 	}
 	
@@ -47,7 +54,7 @@ public class MainController {
 				model.addAttribute("resultCode", -1);
 			}
 		} catch (Exception e) {
-			
+			LOGGER.error(ExceptionUtils.getStackTrace(e));
 		}
 		
 		return "redirect";
@@ -93,7 +100,7 @@ public class MainController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(ExceptionUtils.getStackTrace(e));
 		}
 		
 		return view;
@@ -110,7 +117,7 @@ public class MainController {
 			
 			view.addObject("histData", dao.getHistory(reqMap));
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(ExceptionUtils.getStackTrace(e));
 		}
 		
 		return view;

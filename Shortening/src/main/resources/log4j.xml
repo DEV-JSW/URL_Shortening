@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration shutdownHook="disable">
+    <properties>
+        <property name="basePath">../logs</property>
+        <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %-5X{pid} --- [%15t] %-40.40c{1.} : %m%n</property>
+    </properties>
+
+    <!-- Add Appenders -->
+    <appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}" />
+        </Console>
+        <RollingFile name="file" fileName="${basePath}/urlShort.log" filePattern="${basePath}/urlShort_%d{yyyy-MM-dd}.log_%i" bufferedIO="true" bufferSize="1024" immediateFlush="true">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1024MB"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100" fileIndex="day"/>
+        </RollingFile>
+    </appenders>
+    <!-- Add Loggers -->
+    <loggers>
+        <root level="info">
+            <appender-ref ref="file" />
+            <appender-ref ref="console" />
+        </root>
+    </loggers>
+</configuration>
