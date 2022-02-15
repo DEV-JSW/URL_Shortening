@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shortening.mapper.ShorteningMapper">
+	<insert id="insertShort">
+		<![CDATA[
+			INSERT INTO SHORT_URL
+			VALUES (SHORT_URL_SEQ.NEXTVAL, #{siteName}, #{siteUrl}, 1, #{shortKey}, #{shortUrl} || #{shortKey}, 0)
+    	]]>
+	</insert>
+	
+	<select id="alreadyShort" resultType="java.lang.String">
+		<![CDATA[
+			SELECT SHORTKEY
+			  FROM SHORT_URL
+			 WHERE SITEURL = #{siteUrl}
+    	]]>
+	</select>
+	
+	<update id="updateRequestCount">
+		<![CDATA[
+			UPDATE SHORT_URL
+			   SET SHORTCNT = SHORTCNT + 1
+			 WHERE SITEURL = #{siteUrl}
+    	]]>
+	</update>
+	
+	<select id="isDuplicateKey" resultType="java.lang.Integer">
+		<![CDATA[
+			SELECT COUNT(*)
+			  FROM SHORT_URL
+			 WHERE SHORTKEY = #{shortKey}
+    	]]>
+	</select>
+	
+	<select id="getShortUrl" resultType="java.lang.String">
+		<![CDATA[
+			SELECT SITEURL
+			  FROM SHORT_URL
+			 WHERE SHORTKEY = #{shortKey}
+    	]]>
+	</select>
+	
+	<update id="updateRedirectCount">
+		<![CDATA[
+			UPDATE SHORT_URL
+			   SET REDIRECTCNT = REDIRECTCNT + 1
+			 WHERE SHORTKEY = #{shortKey}
+    	]]>
+	</update>
+	
+	<select id="getHistory" resultType="shortening.model.Shortening">
+		<![CDATA[
+			SELECT SITEURL, SHORTURL, CASE ${flag} WHEN 0 THEN SHORTCNT ELSE REDIRECTCNT END CNT
+			  FROM SHORT_URL
+			 WHERE CASE ${flag} WHEN 0 THEN SITEURL ELSE SHORTKEY END = #{search}
+    	]]>
+	</select>
+</mapper>
