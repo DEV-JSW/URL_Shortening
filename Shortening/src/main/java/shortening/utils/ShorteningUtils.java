@@ -1,8 +1,11 @@
 package shortening.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ShorteningUtils {
+	private final Logger LOGGER;
 	private final String[] CODE;
 	
 	private static class Instance {
@@ -14,6 +17,7 @@ public class ShorteningUtils {
 	}
 	
 	private ShorteningUtils() {
+		LOGGER = LogManager.getLogger(ShorteningUtils.class);
 		CODE = new String[62];
 		
 		String asciiStr = "";
@@ -35,18 +39,21 @@ public class ShorteningUtils {
 		
 		int ascii = 0;
 		
+		LOGGER.debug("Calculate Ascii Code From Request Url. url : [{}]", url);
+		
 		for (char c : url.toCharArray()) {
+			LOGGER.debug("Char : [{}] / Ascii Code : [{}] / Ascii Sum : [{}](Formula => 31 * totalSum + asciiCode)", 
+					Character.toString(c), (int) c, ascii + (31 * ascii) + c);
 			ascii += 31 * ascii + c;
 		}
 		
 		ascii += seed;
 		
-		int res = 0;
-		
 		do {
-			res = ascii % CODE.length;
+			LOGGER.debug("Ascii Sum : [{}] / Ascii Mod : [{}] / Result : [{}]", 
+					ascii, ascii % CODE.length, CODE[Math.abs(ascii % CODE.length)]);
 			
-			result = result.concat(CODE[Math.abs(res)]);
+			result = result.concat(CODE[Math.abs(ascii % CODE.length)]);
 			
 			ascii /= CODE.length;
 		} while (ascii != 0);

@@ -12,7 +12,11 @@ $(document).ready(function(){
 	if (resultCode === "0") {
 		window.self.location = "${siteUrl}";
 	} else {
-		alert("Shortening URL Redirection Count Update Fail.");
+		if (resultCode === "-1") {
+			alert("Shortening URL Redirection Count Update Fail.");
+		} else {
+			alert("Not Found Shortening URL Redirection Info.");
+		}
 	}
 });
 </script>
