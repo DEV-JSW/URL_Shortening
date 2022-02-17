@@ -20,5 +20,5 @@ public interface ShorteningMapper {
 
 	public String getShortUrl(Map<String, Object> map);
 
-	public Shortening getHistory(Map<String, Object> reqMap);
+	public Shortening getHistory(Map<String, Object> map);
 }

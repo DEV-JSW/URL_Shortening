@@ -57,7 +57,7 @@ function shortening() {
 	});
 }
 
-function openHistPop(flag, popup) {
+function openHistPop(flag) {
 	var search = "";
 	
 	if (flag === 0) {
@@ -123,8 +123,8 @@ function openHistPop(flag, popup) {
         	
         	$("#histBody").append(content);
 
-        	$('#' + popup).show();
-        	$('#' + popup).centerPop();
+        	$('#histPop').show();
+        	$('#histPop').centerPop();
         },
         error: function (jqXHR, textStatus, errorThrown, e, request) {
             if (jqXHR.status == 400) {
@@ -149,8 +149,8 @@ function openHistPop(flag, popup) {
 	});
 }
 
-function closeHistPop(popup) {
-	$('#' + popup).hide();
+function closeHistPop() {
+	$('#histPop').hide();
 }
 </script>
 <meta charset="UTF-8">
@@ -167,7 +167,7 @@ function closeHistPop(popup) {
 			<div class="data_area">
 				<div class="reqt_area">
 					<p class="right_desc">
-						<a href="javascript:openHistPop(0, 'histPop');" class="btn_st1 sys_mode">요청이력</a>
+						<a href="javascript:openHistPop(0);" class="btn_st1 sys_mode">요청이력</a>
 					</p>
 					<table class="table_st1">
 						<caption></caption>
@@ -191,7 +191,7 @@ function closeHistPop(popup) {
 				</div>
 				<div class="resp_area">
 					<p class="right_desc">
-						<a href="javascript:openHistPop(1, 'histPop');" class="btn_st1 sys_mode">요청이력</a>
+						<a href="javascript:openHistPop(1);" class="btn_st1 sys_mode">요청이력</a>
 					</p>
 					<table class="table_st1">
 						<caption></caption>
@@ -224,13 +224,13 @@ function closeHistPop(popup) {
 			<div id="histPop" class="layer_wrap">
 				<p class="layer_tit">
 					<span>History</span>
-					<a href="javascript:closeHistPop('histPop');">
+					<a href="javascript:closeHistPop();">
 					<img src="/images/layout/layer_x.png" alt="닫기" /></a>
 				</p>
 				<div class="layer_cont">
 					<h4 class="sub_h4">요청 이력</h4>
 					<table class="layer_req_input">
-						<caption>기본정보</caption>
+						<caption></caption>
 						<colgroup>
 							<col width="140" />
 							<col width="180" />
@@ -239,7 +239,7 @@ function closeHistPop(popup) {
 						</tbody>
 					</table>
 					<p class="layer_req_btn" style="margin-top: 20px !important">
-						<a href="javascript:closeHistPop('histPop');" class="l_cancel_btn">닫기</a>
+						<a href="javascript:closeHistPop();" class="l_cancel_btn">닫기</a>
 					</p>
 				</div>
 			</div>

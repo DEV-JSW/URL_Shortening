@@ -61,7 +61,6 @@ input[readonly] { background:#eee; }
 
 .layer_req_btn{padding:15px 0 5px 0; text-align:center}
 
-
 /* 상단 */
 .header{}
 
@@ -88,7 +87,7 @@ box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.1); z-index:1;}
 .test_area{float:left; width : 89%; padding-top:30px; padding-bottom:10px;}
 .reqt_area{float:left; width : 43%; padding-top:30px; padding-bottom:10px;}
 .resp_area{float:right; width : 43%; padding-top:30px; padding-bottom:10px;}
-.proc_area{float:right; width : 10%; padding-top:100px; padding-bottom:10px;}
+.proc_area{float:right; width : 10%; padding-top:100px; padding-right:20px; padding-bottom:10px; text-align:center}
 
 .left_desc{float:left; vertical-align:middle}
 .left_desc span{color:#FF5A5A; font-weight:bold}
